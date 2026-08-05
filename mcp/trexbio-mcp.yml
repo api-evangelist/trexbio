@@ -1,0 +1,79 @@
+generated: '2026-08-05'
+method: probed
+source: https://trex.bio/wp-json/mcp
+status: gated
+scored: false
+scored_reason: >-
+  NO `MCPServer` POINTER IS WIRED IN apis.yml, DELIBERATELY. The endpoints below are real
+  and live, but they are emitted by the WordPress MCP Adapter plugin running TRexBio's
+  WP Engine marketing site — they let an authenticated WordPress user drive the CMS. They
+  are not a TRexBio product, are not documented anywhere on trex.bio, have no signup, and
+  are not offered to developers. Wiring `type: MCPServer` would list a clinical-stage
+  biotech's CMS plugin on mcp.apis.io as a developer offering and would award it the
+  12-point agent-readiness `mcp_server` dimension plus 4 ergonomics points it has not
+  earned. Recorded here as an honest probe result so a human can override this call with
+  full evidence in hand.
+server:
+  name: trexbio-wordpress-mcp
+  transport: http
+  implementation: WordPress MCP Adapter plugin (wp-json `mcp` namespace)
+  discovery: https://trex.bio/wp-json/mcp
+  endpoints:
+  - url: https://trex.bio/wp-json/mcp/mcp-oauth-server
+    methods: [POST, GET, DELETE]
+    auth: OAuth 2.0 bearer (RFC 9728 protected resource, scope `mcp`)
+    tools_list_status: 401
+    tools_list_body: '{"code":"mcp_unauthorized","message":"MCP authentication required."}'
+  - url: https://trex.bio/wp-json/mcp/mcp-adapter-default-server
+    methods: [POST, GET, DELETE]
+    auth: WordPress cookie / application password
+    tools_list_status: 401
+    tools_list_body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that."}'
+tools: []
+tools_note: >-
+  `tools/list` returned 401 on both endpoints, so the live tool schemas are auth-gated and
+  were NOT captured. No tool list is derived or guessed here — there is no OpenAPI on this
+  host to derive one from, and the provider publishes no tool documentation.
+authorization:
+  authorization_server: https://trex.bio
+  metadata: well-known/trexbio-oauth-authorization-server.json
+  protected_resource_metadata: well-known/trexbio-oauth-protected-resource.json
+  scopes_supported: [mcp]
+  grant_types_supported: [authorization_code, refresh_token]
+  pkce: S256
+  dynamic_client_registration: client_id_metadata_document_supported
+related_surfaces:
+  wordpress_rest_api:
+    url: https://trex.bio/wp-json/
+    status: 200
+    namespaces: 18
+    routes: 342
+    anonymous_read: true
+    note: >-
+      WordPress core REST API. `wp/v2/posts`, `wp/v2/pages` and `wp/v2/types` return 200
+      anonymously, so the site's news, publications and page content is machine-readable.
+      This is stock WordPress, not a TRexBio API product, and is not registered as an API
+      in apis.yml.
+  wp_abilities:
+    url: https://trex.bio/wp-json/wp-abilities/v1/abilities
+    status: 401
+    note: WordPress Abilities API — auth-gated.
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://trex.bio/wp-json/
+    status: 200
+  - url: https://trex.bio/wp-json/mcp
+    status: 200
+  - url: https://trex.bio/wp-json/mcp/mcp-oauth-server
+    status: 401
+    method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  - url: https://trex.bio/wp-json/mcp/mcp-adapter-default-server
+    status: 401
+    method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  - url: https://trex.bio/wp-json/wp-abilities/v1/abilities
+    status: 401
+  - url: https://trex.bio/wp-json/wp/v2/posts?per_page=1
+    status: 200
+  - url: https://trex.bio/graphql
+    status: 404

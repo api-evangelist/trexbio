@@ -1,17 +1,41 @@
 aid: trexbio
 name: TRexBio
-description: 'TRexBio is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'TRexBio, Inc. is a clinical-stage biotechnology company headquartered at 681
+  Gateway Blvd in South San Francisco, California, founded in 2018 and seed funded by SV
+  Health Investors, that discovers and develops immunoregulatory biologics based on tissue
+  regulatory T cell (Treg) biology. Its Deep Biology Platform combines human tissue samples,
+  computational biology and immunobiology expertise to map how tissue Tregs behave in disease
+  and to identify and characterize novel targets for inflammatory, autoimmune and other
+  immune-mediated conditions. Disclosed programs include TRB-061, the CD30 agonist TRB-071,
+  TRB-081, and the Lilly-partnered TRB-051, with Phase 1 trials expected to initiate in 2027.
+  The company announced an $84 million Series B in November 2024 and closed a further $50
+  million financing in January 2026; investors include Eli Lilly and Company, Pfizer Ventures,
+  Johnson & Johnson, SV Health Investors and Polaris Partners. TRexBio publishes no developer
+  program, API documentation, SDK or machine-readable API contract. trex.bio is a WordPress
+  marketing site whose only machine-readable surfaces are the WordPress core REST API, a
+  Yoast-generated llms.txt, and an OAuth-protected WordPress MCP adapter endpoint — CMS
+  infrastructure rather than a product API.'
+image: https://trex.bio/wp-content/uploads/2025/10/cropped-Group-3.png
 url: https://raw.githubusercontent.com/api-evangelist/trexbio/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profile
+x-tier-reason: no-api-surface
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
 - Company
+- Biotechnology
+- Life Sciences
+- Pharmaceuticals
+- Immunology
+- Drug Discovery
+- Regulatory T Cells
+- Clinical Stage
+- Computational Biology
+- Therapeutics
+- South San Francisco
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +44,69 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://trex.bio/
+- type: About
+  url: https://trex.bio/about-trex-bio/
+- type: Platform
+  url: https://trex.bio/deep-biology-platform/
+- type: Pipeline
+  url: https://trex.bio/pipeline/
+- type: Blog
+  url: https://trex.bio/news/
+- type: BlogFeeds
+  url: https://trex.bio/feed/
+- type: Research
+  url: https://trex.bio/news/
+- type: Careers
+  url: https://trex.bio/careers/
+- type: Contact
+  url: https://trex.bio/contact-us/
+- type: TermsOfService
+  url: https://trex.bio/terms-of-use/
+- type: PrivacyPolicy
+  url: https://trex.bio/privacy-policy/
+- type: CookiePolicy
+  url: https://trex.bio/cookie-policy/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/trexbio-inc/
+- type: GitHubOrganization
+  url: https://github.com/trexbio
+- type: Investors
   url: https://forgeglobal.com/trexbio_stock/
+- type: LLMsTxt
+  url: llms/trexbio-llms.txt
+- type: WellKnown
+  url: well-known/trexbio-well-known.yml
+- type: DomainSecurity
+  url: security/trexbio-domain-security.yml
+x-enrichment:
+  date: '2026-08-05'
+  status: minimal
+  artifacts_added: 6
+  pass: local-v1
+x-coverage:
+  state: none
+  reason: no-developer-program
+  detail: >-
+    TRexBio is a clinical-stage Treg biologics company with no developer program at all —
+    trex.bio is a WordPress/WP Engine marketing site, and the only machine-readable things
+    on it are stock CMS plumbing: the WordPress core REST API at /wp-json/ (342 routes, all
+    of them WordPress and plugin routes), a Yoast-SEO-generated /llms.txt listing news posts
+    and careers pages, and an undocumented WordPress MCP adapter at
+    /wp-json/mcp/mcp-oauth-server that returns 401 mcp_unauthorized to anonymous tools/list
+    — there is no product API, no /openapi.json, no docs host, and github.com/trexbio has
+    zero public repositories.
+  evidence:
+  - url: https://trex.bio/openapi.json
+    status: 404
+  - url: https://trex.bio/graphql
+    status: 404
+  - url: https://trex.bio/.well-known/agent-card.json
+    status: 404
+  - url: https://trex.bio/wp-json/mcp/mcp-oauth-server
+    status: 401
+  - url: https://trex.bio/llms.txt
+    status: 200
+  - url: https://api.github.com/orgs/trexbio/repos
+    status: 200
+  checked: '2026-08-05'

@@ -1,0 +1,84 @@
+generated: '2026-08-05'
+method: searched
+source: https://trex.bio/.well-known/
+host: https://trex.bio
+note: >-
+  trex.bio serves two real RFC well-known discovery documents anonymously: RFC 8414 OAuth
+  2.0 Authorization Server Metadata and RFC 9728 OAuth 2.0 Protected Resource Metadata.
+  Both are emitted by the WordPress MCP adapter / OAuth plugin running on the company's
+  WP Engine marketing site, not by a TRexBio product API — the protected resource they
+  describe is the WordPress MCP endpoint at /wp-json/mcp/mcp-oauth-server. They are
+  recorded here because they are genuinely published and machine-readable, and because
+  they are the only structured discovery surface the company serves. See
+  mcp/trexbio-mcp.yml for the endpoint probe and for why no MCPServer / Authentication /
+  OAuthScopes pointer is wired in apis.yml.
+control_probe:
+  note: >-
+    A nonexistent path was probed to confirm the host returns real 404s rather than a
+    soft-404 catch-all, so the 200s below are evidence and not false credit.
+  url: https://trex.bio/llms-control-xyz123.txt
+  status: 404
+  content_type: text/html
+documents:
+- path: /.well-known/oauth-authorization-server
+  spec: RFC 8414
+  status: 200
+  content_type: application/json
+  file: trexbio-oauth-authorization-server.json
+  summary:
+    issuer: https://trex.bio
+    authorization_endpoint: https://trex.bio/oauth/authorize
+    token_endpoint: https://trex.bio/oauth/token
+    revocation_endpoint: https://trex.bio/oauth/revoke
+    grant_types_supported: [authorization_code, refresh_token]
+    code_challenge_methods_supported: [S256]
+    scopes_supported: [mcp]
+    token_endpoint_auth_methods_supported: [none]
+    client_id_metadata_document_supported: true
+- path: /.well-known/oauth-protected-resource
+  spec: RFC 9728
+  status: 200
+  content_type: application/json
+  file: trexbio-oauth-protected-resource.json
+  summary:
+    resource: https://trex.bio/wp-json/mcp/mcp-oauth-server
+    authorization_servers: [https://trex.bio]
+    bearer_methods_supported: [header]
+    scopes_supported: [mcp]
+- path: /.well-known/security.txt
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/api-catalog
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  spec: A2A 1.0.0
+  status: 404
+- path: /.well-known/agent.json
+  spec: A2A pre-0.3 legacy
+  status: 404
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://trex.bio/.well-known/oauth-authorization-server
+    status: 200
+  - url: https://trex.bio/.well-known/oauth-protected-resource
+    status: 200
+  - url: https://trex.bio/.well-known/security.txt
+    status: 404
+  - url: https://trex.bio/.well-known/agent-card.json
+    status: 404
+  - url: https://trex.bio/.well-known/agent.json
+    status: 404
+  - url: https://trex.bio/.well-known/api-catalog
+    status: 404
+  - url: https://trex.bio/.well-known/openid-configuration
+    status: 404
+  - url: https://trex.bio/.well-known/ai-plugin.json
+    status: 404
+  - url: https://trex.bio/llms-control-xyz123.txt
+    status: 404
