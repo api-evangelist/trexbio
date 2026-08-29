@@ -15,6 +15,17 @@ description: 'TRexBio, Inc. is a clinical-stage biotechnology company headquarte
   marketing site whose only machine-readable surfaces are the WordPress core REST API, a
   Yoast-generated llms.txt, and an OAuth-protected WordPress MCP adapter endpoint — CMS
   infrastructure rather than a product API.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://trex.bio/wp-content/uploads/2025/10/cropped-Group-3.png
 url: https://raw.githubusercontent.com/api-evangelist/trexbio/refs/heads/main/apis.yml
 x-type: company
